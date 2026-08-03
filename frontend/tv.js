@@ -1,5 +1,11 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://frenos-pala-backend.onrender.com'; // ⚠️ RECUERDA PONER TU URL REAL AQUÍ (SIN LA / AL FINAL)
 const socket = io(API_URL);
+
+// 🔥 NUEVO: Manejo automático de reconexión y encendido
+socket.on('connect', () => {
+    console.log('🟢 ¡Conectado/Reconectado al servidor!');
+    actualizarPantalla();
+});
 
 socket.on('actualizar_tv', () => {
     actualizarPantalla();
@@ -31,7 +37,6 @@ async function cargarMecanicos() {
         }
 
         // ==========================================
-// ==========================================
         // 🔥 ORDENAMIENTO DINÁMICO CORREGIDO Y EXACTO
         // ==========================================
         mecanicos.sort((a, b) => {
